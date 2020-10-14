@@ -1,0 +1,28 @@
+{% extends 'estrutura.html' %}
+{% block content %}
+<div class="lead mb-3">Classificação de Produtos</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Codigo-Gtin</th>
+      <th scope="col">Cor</th>
+      <th scope="col">Tipo</th>
+	  <th scope="col">Processado</th>
+	  <th scope="col">Classificação</th>
+    </tr>
+  </thead>
+  <tbody>
+
+	{% for p in processados %}
+	    <tr>
+	      <td>{{ p.produto.codigo_gtin }}</td>
+	      <td>{{ p.produto.cor }}</td>
+	      <td>{{ p.produto.tipo }}</td>
+	      <td>{{ p.produto.processado|yesno:"Ok,Pendente" }}</td>
+	      <td>Regra {{ p.regra.pk }}: {{ p.regra.campo|capfirst}} | {{ p.regra.valor  }}</td>
+	      <td>Resultado: {{ p.resultado }}</td>
+	    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

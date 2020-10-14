@@ -1,0 +1,45 @@
+{% extends 'estrutura.html' %}
+{% load widget_tweaks %}
+{% block content %}
+   <div class="lead mb-3">Edição de Produtos</div>
+	<div class="row">
+		<div class="col-md-8 col-12">
+			<table class="table table-hover">
+			  <thead>
+			    <tr>
+			      <th scope="col">Codigo-Gtin</th>
+			      <th scope="col">Cor</th>
+				  <th scope="col">Tipo</th>
+			      <th scope="col"></th>
+				  <th scope="col"></th>
+			    </tr>
+			  </thead>
+			  <tbody>
+				  {% for produto in produtos %}
+					 <tr>
+					      <td>{{produto.codigo_gtin}}</td>
+					      <td>{{produto.cor}}</td>
+						  <td>{{produto.tipo}}</td>
+					      <td><a href="{% url 'base:editar' produto.pk %}">Editar</a> </td>
+					      <td><a href="{% url 'base:excluir' produto.pk %}">Excluir</a></td>
+					 </tr>
+				  {% endfor %}
+			  </tbody>
+			</table>
+		</div>
+		<div class="col-md-4 col-12">
+			<form method="post">
+				{% csrf_token %}
+				{% for field in form %}
+				  <div class="form-group">
+				    <label>{{ field.label }}</label>
+				    {% render_field field class="form-control" %}
+				  </div>
+				{% endfor %}
+
+				  <button type="submit" class="btn btn-primary">Enviar</button>
+				  <a href="/" class="btn btn-secondary">Voltar</a>
+			</form>
+		</div>
+	</div>
+{% endblock %}
